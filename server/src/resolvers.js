@@ -34,7 +34,8 @@ export const resolvers = {
               }
             }
           }
-        }
+        },
+        include: { category: true }
       })
 
       pubSub.publish('productCreated', product)

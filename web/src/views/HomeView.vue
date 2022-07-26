@@ -10,6 +10,7 @@
               <th>ID</th>
               <th>Name</th>
               <th>Description</th>
+              <th>Price</th>
               <th>Category</th>
             </tr>
           </thead>
@@ -18,10 +19,11 @@
               <td>{{ product.id }}</td>
               <td>{{ product.name }}</td>
               <td>{{ product.description }}</td>
+              <td>{{ product.price }}</td>
               <td>{{ product.category.name }}</td>
             </tr>
-          </tbody></v-table
-        >
+          </tbody>
+        </v-table>
       </v-container>
     </v-main>
   </v-app>
@@ -65,11 +67,40 @@ export default {
         `,
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev
-          const product = subscriptionData.data.productAdded
+
+          const product = subscriptionData.data.productCreated
+
           return {
             ...prev,
             products: [...prev.products, product]
           }
+        }
+      }
+    },
+
+    $subscribe: {
+      productDeleted: {
+        query: gql`
+          subscription {
+            productDeleted {
+              id
+            }
+          }
+        `,
+        result() {
+          this.$apollo.queries.products.refetch()
+        }
+      },
+      productUpdated: {
+        query: gql`
+          subscription {
+            productUpdated {
+              id
+            }
+          }
+        `,
+        result() {
+          this.$apollo.queries.products.refetch()
         }
       }
     }

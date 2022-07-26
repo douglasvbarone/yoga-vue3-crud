@@ -7,11 +7,13 @@ export const typeDefs = /* GraphQL */ `
   type Mutation {
     createProduct(data: ProductCreateInput!): Product
     updateProduct(id: ID!, data: ProductUpdateInput!): Product
+    deleteProduct(id: ID!): Product
   }
 
   type Subscription {
     productCreated: Product
     productUpdated: Product
+    productDeleted: Product
   }
 
   type Product {

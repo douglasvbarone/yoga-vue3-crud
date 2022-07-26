@@ -73,6 +73,14 @@ export const resolvers = {
       pubSub.publish('productUpdated', product)
 
       return product
+    },
+
+    deleteProduct: async (parent, { id }, context) => {
+      const product = await db.product.delete({ where: { id: +id } })
+
+      pubSub.publish('productDeleted', product)
+
+      return product
     }
   },
 
@@ -83,6 +91,10 @@ export const resolvers = {
     },
     productUpdated: {
       subscribe: () => pubSub.subscribe('productUpdated'),
+      resolve: payload => payload
+    },
+    productDeleted: {
+      subscribe: () => pubSub.subscribe('productDeleted'),
       resolve: payload => payload
     }
   }

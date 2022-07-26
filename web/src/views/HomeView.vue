@@ -3,17 +3,76 @@
     <v-app-bar app>Vue GraphQL CRUD</v-app-bar>
 
     <v-main>
-      <v-container fluid>
-        <router-view />
+      <v-container>
+        <v-table v-if="products">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in products" :key="product.id">
+              <td>{{ product.id }}</td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.category.name }}</td>
+            </tr>
+          </tbody></v-table
+        >
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import gql from 'graphql-tag'
+
 export default {
   name: 'HomeView',
-
-  components: {}
+  apollo: {
+    products: {
+      query: gql`
+        query {
+          products {
+            id
+            name
+            description
+            price
+            category {
+              id
+              name
+            }
+          }
+        }
+      `,
+      subscribeToMore: {
+        document: gql`
+          subscription {
+            productCreated {
+              id
+              name
+              description
+              price
+              category {
+                id
+                name
+              }
+            }
+          }
+        `,
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const product = subscriptionData.data.productAdded
+          return {
+            ...prev,
+            products: [...prev.products, product]
+          }
+        }
+      }
+    }
+  }
 }
 </script>

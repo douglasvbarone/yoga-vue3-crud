@@ -20,6 +20,7 @@ export const typeDefs = /* GraphQL */ `
     id: ID!
     name: String!
     price: Int
+    description: String
     category: Category!
   }
 

@@ -1,18 +1,19 @@
 <template>
-  <HelloWorld />
+  <v-app>
+    <v-app-bar app>Vue GraphQL CRUD</v-app-bar>
+
+    <v-main>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-
-// Components
-import HelloWorld from '../components/HelloWorld.vue';
-
-export default defineComponent({
+export default {
   name: 'HomeView',
 
-  components: {
-    HelloWorld,
-  },
-});
+  components: {}
+}
 </script>

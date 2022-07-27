@@ -1,32 +1,5 @@
 <template>
-  <v-app>
-    <v-app-bar app>Vue GraphQL CRUD</v-app-bar>
-
-    <v-main>
-      <v-container>
-        <v-table v-if="products">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Category</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="product in products" :key="product.id">
-              <td>{{ product.id }}</td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.description }}</td>
-              <td>{{ product.price }}</td>
-              <td>{{ product.category.name }}</td>
-            </tr>
-          </tbody>
-        </v-table>
-      </v-container>
-    </v-main>
-  </v-app>
+  <main>{{ products }}</main>
 </template>
 
 <script>

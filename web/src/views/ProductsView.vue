@@ -4,8 +4,19 @@
       <v-btn :to="{ name: 'newProduct' }">
         <v-icon icon="mdi-plus" />Adicionar
       </v-btn>
+      <v-spacer />
+      <v-text-field
+        v-model="filter"
+        label="Filter"
+        hide-details
+        variant="outlined"
+        density="comfortable"
+        prepend-inner-icon="mdi-magnify"
+        :style="{ maxWidth: '300px' }"
+        clearable
+      />
     </v-toolbar>
-    <products-table :products="products" />
+    <products-table :products="items" />
     <router-view />
   </v-container>
 </template>
@@ -16,6 +27,25 @@ import ProductsTable from '../components/ProductsTable.vue'
 
 export default {
   name: 'ProductsView',
+  data: () => ({
+    filter: ''
+  }),
+  computed: {
+    items() {
+      if (this.products)
+        return this.products.filter(
+          product =>
+            product.name.toLowerCase().includes(this.filter.toLowerCase()) ||
+            product.description
+              .toLowerCase()
+              .includes(this.filter.toLowerCase()) ||
+            product.category.name
+              .toLowerCase()
+              .includes(this.filter.toLowerCase())
+        )
+      else return []
+    }
+  },
   apollo: {
     products: {
       query: gql`

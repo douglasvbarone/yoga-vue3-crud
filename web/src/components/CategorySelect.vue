@@ -1,29 +1,27 @@
 <template>
-  <div :style="{ maxWidth: '300px' }">
-    <v-row>
-      <v-select
-        v-if="!addCategory"
-        v-model="selectedCategory"
-        :items="items"
-        placeholder="Select a category"
-        @update:model-value="$emit('update', selectedCategory)"
-        hide-details
-        variant="outlined"
-        density="comfortable"
-      />
-      <v-text-field
-        v-else
-        placeholder="Type a new category"
-        v-model="selectedCategory"
-        @update:model-value="$emit('update', selectedCategory)"
-        hide-details
-        variant="outlined"
-        density="comfortable"
-      />
-      <v-btn @click="toggleAddCategory" class="ml-2" variant="flat" icon>
-        <v-icon :icon="addCategory ? 'mdi-backspace' : 'mdi-pencil-plus'" />
-      </v-btn>
-    </v-row>
+  <div>
+    <v-select
+      v-if="!addCategory"
+      v-model="selectedCategory"
+      :items="items"
+      placeholder="Select a category"
+      label="Category"
+      @update:model-value="$emit('update', selectedCategory)"
+      hide-details
+      variant="outlined"
+      density="comfortable"
+    />
+    <v-text-field
+      v-else
+      placeholder="Type a new category"
+      v-model="selectedCategory"
+      @update:model-value="$emit('update', selectedCategory)"
+      hide-details
+      variant="outlined"
+      density="comfortable"
+      append-icon="mdi-close"
+      @click:append="addCategory = false"
+    />
   </div>
 </template>
 <script>
@@ -33,8 +31,7 @@ export default {
   name: 'CategorySelect',
   props: {
     currentCategory: {
-      type: String,
-      required: true
+      type: String
     }
   },
 
@@ -48,8 +45,25 @@ export default {
     items() {
       if (this.categories) {
         this.selectedCategory = this.currentCategory
-        return this.categories.map(category => category.name)
+
+        if (this.categories.length == 0) {
+          this.addCategory = true
+        }
+
+        return [
+          ...this.categories.map(category => category.name),
+          'Add new category'
+        ]
       } else return []
+    }
+  },
+  watch: {
+    selectedCategory(value) {
+      if (value === 'Add new category') {
+        this.selectedCategory = ''
+        this.addCategory = true
+        this.$emit('update', '')
+      }
     }
   },
   methods: {

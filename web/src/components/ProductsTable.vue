@@ -2,12 +2,12 @@
   <v-table autocapitalize>
     <thead>
       <tr>
-        <th class="text-left">ID</th>
-        <th class="text-left">Name</th>
-        <th class="text-left">Price</th>
-        <th class="text-left">Description</th>
-        <th class="text-left">Category</th>
-        <th class="text-left">Actions</th>
+        <th :style="{ width: '30px' }" class="text-left">ID</th>
+        <th :style="{ width: '300px' }" class="text-left">Name</th>
+        <th :style="{ width: '100px' }" class="text-left">Price</th>
+        <th :style="{ width: '300px' }" class="text-left">Description</th>
+        <th :style="{ width: '200px' }" class="text-left">Category</th>
+        <th :style="{ width: '300px' }" class="text-left">Actions</th>
       </tr>
     </thead>
     <tbody>

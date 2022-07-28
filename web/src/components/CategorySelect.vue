@@ -1,17 +1,28 @@
 <template>
-  <div>
+  <div :style="{ maxWidth: '300px' }">
     <v-row>
       <v-select
+        v-if="!addCategory"
         v-model="selectedCategory"
         :items="items"
-        placeholder="Select a
-    category"
+        placeholder="Select a category"
         @update:model-value="$emit('update', selectedCategory)"
         hide-details
         variant="outlined"
         density="comfortable"
       />
-      <!-- <v-btn class="ml-2" variant="flat"><v-icon icon="mdi-plus" /></v-btn> -->
+      <v-text-field
+        v-else
+        placeholder="Type a new category"
+        v-model="selectedCategory"
+        @update:model-value="$emit('update', selectedCategory)"
+        hide-details
+        variant="outlined"
+        density="comfortable"
+      />
+      <v-btn @click="toggleAddCategory" class="ml-2" variant="flat" icon>
+        <v-icon :icon="addCategory ? 'mdi-backspace' : 'mdi-pencil-plus'" />
+      </v-btn>
     </v-row>
   </div>
 </template>
@@ -29,7 +40,8 @@ export default {
 
   data() {
     return {
-      selectedCategory: null
+      selectedCategory: null,
+      addCategory: false
     }
   },
   computed: {
@@ -38,6 +50,13 @@ export default {
         this.selectedCategory = this.currentCategory
         return this.categories.map(category => category.name)
       } else return []
+    }
+  },
+  methods: {
+    toggleAddCategory() {
+      this.addCategory = !this.addCategory
+      if (this.addCategory) this.selectedCategory = ''
+      else this.selectedCategory = this.currentCategory
     }
   },
   apollo: {

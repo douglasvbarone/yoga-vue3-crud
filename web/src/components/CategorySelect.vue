@@ -5,7 +5,7 @@
       v-model="selectedCategory"
       :items="items"
       placeholder="Select a category"
-      label="Category"
+      :label="hideLabel ? '' : 'Category'"
       @update:model-value="$emit('update', selectedCategory)"
       hide-details
       variant="outlined"
@@ -32,6 +32,10 @@ export default {
   props: {
     currentCategory: {
       type: String
+    },
+    hideLabel: {
+      type: Boolean,
+      default: false
     }
   },
 

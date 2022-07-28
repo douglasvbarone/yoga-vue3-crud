@@ -57,6 +57,7 @@
                 <category-select
                   :currentCategory="editingProduct.category.name"
                   @update="e => (editingCategory = e)"
+                  hide-label
                 />
               </td>
               <td>

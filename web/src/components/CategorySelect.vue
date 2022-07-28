@@ -1,14 +1,18 @@
 <template>
   <div>
-    <v-select
-      v-model="selectedCategory"
-      :items="items"
-      placeholder="Select a category"
-      @update:model-value="$emit('update', selectedCategory)"
-      hide-details
-      variant="outlined"
-      density="comfortable"
-    ></v-select>
+    <v-row>
+      <v-select
+        v-model="selectedCategory"
+        :items="items"
+        placeholder="Select a
+    category"
+        @update:model-value="$emit('update', selectedCategory)"
+        hide-details
+        variant="outlined"
+        density="comfortable"
+      />
+      <!-- <v-btn class="ml-2" variant="flat"><v-icon icon="mdi-plus" /></v-btn> -->
+    </v-row>
   </div>
 </template>
 <script>

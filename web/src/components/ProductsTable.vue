@@ -111,20 +111,21 @@ export default {
     },
 
     async onDelete(id) {
-      try {
-        await this.$apollo.mutate({
-          mutation: gql`
-            mutation deleteProduct($id: ID!) {
-              deleteProduct(id: $id) {
-                id
+      if (confirm('Are you sure you want to delete this product?'))
+        try {
+          await this.$apollo.mutate({
+            mutation: gql`
+              mutation deleteProduct($id: ID!) {
+                deleteProduct(id: $id) {
+                  id
+                }
               }
-            }
-          `,
-          variables: { id }
-        })
-      } catch (error) {
-        console.log(error)
-      }
+            `,
+            variables: { id }
+          })
+        } catch (error) {
+          console.log(error)
+        }
     },
     onEdit(product) {
       this.editingProduct = { ...product }

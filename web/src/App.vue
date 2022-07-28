@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-app-bar color="primary">
-        <v-toolbar-title>Vue + GraphQL CRUD</v-toolbar-title>
+        <v-toolbar-title>GraphQL-Yoga + Vue = ❤️</v-toolbar-title>
       </v-app-bar>
       <router-view />
     </v-main>

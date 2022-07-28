@@ -2,7 +2,7 @@
   <v-container>
     <v-toolbar>
       <v-btn :to="{ name: 'newProduct' }">
-        <v-icon icon="mdi-plus" />Adicionar
+        <v-icon icon="mdi-plus" />Add
       </v-btn>
       <v-spacer />
       <v-text-field

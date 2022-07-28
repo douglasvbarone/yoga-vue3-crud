@@ -1,12 +1,21 @@
 <template>
-  <main>{{ products }}</main>
+  <v-container>
+    <v-toolbar>
+      <v-btn :to="{ name: 'newProduct' }">
+        <v-icon icon="mdi-plus" />Adicionar
+      </v-btn>
+    </v-toolbar>
+    <products-table :products="products" />
+    <router-view />
+  </v-container>
 </template>
 
 <script>
 import gql from 'graphql-tag'
+import ProductsTable from '../components/ProductsTable.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'ProductsView',
   apollo: {
     products: {
       query: gql`
@@ -40,9 +49,7 @@ export default {
         `,
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev
-
           const product = subscriptionData.data.productCreated
-
           return {
             ...prev,
             products: [...prev.products, product]
@@ -50,7 +57,6 @@ export default {
         }
       }
     },
-
     $subscribe: {
       productDeleted: {
         query: gql`
@@ -77,6 +83,7 @@ export default {
         }
       }
     }
-  }
+  },
+  components: { ProductsTable }
 }
 </script>

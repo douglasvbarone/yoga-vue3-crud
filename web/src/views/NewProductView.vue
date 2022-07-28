@@ -19,7 +19,6 @@
                 v-model="price"
                 label="Price"
                 :variant="'outlined'"
-                mask="currency"
                 :rules="[
                   v => !!v || 'Price is required',
                   v => !isNaN(v) || 'Price must be a number'

@@ -32,7 +32,6 @@
               />
               <category-select class="mb-4" @update="e => (category = e)" />
             </v-form>
-            {{ category }}
           </v-card-text>
           <v-card-actions>
             <v-spacer />

@@ -15,7 +15,8 @@
                 required
                 :rules="[v => !!v || 'Name is required']"
               />
-              <v-text-field
+
+              <money-input
                 v-model="price"
                 label="Price"
                 :variant="'outlined'"
@@ -51,14 +52,16 @@
 <script>
 import gql from 'graphql-tag'
 import CategorySelect from '../components/CategorySelect.vue'
+import MoneyInput from '../components/MoneyInput.vue'
+
 export default {
   name: 'NewProductView',
-  components: { CategorySelect },
+  components: { CategorySelect, MoneyInput },
   data: () => ({
     valid: false,
 
     name: '',
-    price: '',
+    price: 0,
     description: '',
     category: ''
   }),

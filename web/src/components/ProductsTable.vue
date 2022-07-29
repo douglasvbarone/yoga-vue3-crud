@@ -4,7 +4,7 @@
       <tr>
         <th :style="{ width: '30px' }" class="text-left">ID</th>
         <th :style="{ width: '300px' }" class="text-left">Name</th>
-        <th :style="{ width: '100px' }" class="text-left">Price</th>
+        <th :style="{ width: '200px' }" class="text-left">Price</th>
         <th :style="{ width: '300px' }" class="text-left">Description</th>
         <th :style="{ width: '200px' }" class="text-left">Category</th>
         <th :style="{ width: '300px' }" class="text-left">Actions</th>
@@ -17,7 +17,15 @@
             <template v-if="editingProduct && editingProduct.id != product.id">
               <td>{{ product.id }}</td>
               <td>{{ product.name }}</td>
-              <td>{{ product.price }}</td>
+              <td>
+                <MoneyInput
+                  disabled
+                  hide-details
+                  variant="plain"
+                  density="comfortable"
+                  v-model="product.price"
+                />
+              </td>
               <td>{{ product.description }}</td>
               <td>{{ product.category.name }}</td>
               <td>
@@ -32,15 +40,15 @@
               <td>
                 <v-text-field
                   hide-details
-                  :variant="'outlined'"
+                  variant="outlined"
                   density="comfortable"
                   v-model="editingProduct.name"
                 />
               </td>
               <td>
-                <v-text-field
+                <MoneyInput
                   hide-details
-                  :variant="'outlined'"
+                  variant="outlined"
                   density="comfortable"
                   v-model="editingProduct.price"
                 />
@@ -76,6 +84,7 @@ import RowActions from './RowActions.vue'
 import EditActions from './EditActions.vue'
 import gql from 'graphql-tag'
 import CategorySelect from './CategorySelect.vue'
+import MoneyInput from './MoneyInput.vue'
 
 export default {
   props: {
@@ -84,7 +93,7 @@ export default {
       default: []
     }
   },
-  components: { RowActions, EditActions, CategorySelect },
+  components: { RowActions, EditActions, CategorySelect, MoneyInput },
   data: () => ({
     editingProduct: {
       id: null,

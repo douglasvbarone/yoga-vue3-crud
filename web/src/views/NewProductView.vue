@@ -16,14 +16,11 @@
                 :rules="[v => !!v || 'Name is required']"
               />
 
-              <money-input
+              <v-text-field
                 v-model="price"
                 label="Price"
                 :variant="'outlined'"
-                :rules="[
-                  v => !!v || 'Price is required',
-                  v => !isNaN(v) || 'Price must be a number'
-                ]"
+                :rules="[v => !!v || 'Price is required']"
               />
               <v-textarea
                 v-model="description"
@@ -81,7 +78,7 @@ export default {
             variables: {
               data: {
                 name: this.name,
-                price: ++this.price,
+                price: this.price.toString(),
                 description: this.description,
                 category: this.category
               }

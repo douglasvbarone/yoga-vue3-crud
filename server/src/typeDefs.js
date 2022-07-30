@@ -19,7 +19,7 @@ export const typeDefs = /* GraphQL */ `
   type Product {
     id: ID!
     name: String!
-    price: Float
+    price: String!
     description: String
     category: Category!
   }
@@ -32,14 +32,14 @@ export const typeDefs = /* GraphQL */ `
 
   input ProductCreateInput {
     name: String!
-    price: Float!
+    price: String!
     category: String!
     description: String
   }
 
   input ProductUpdateInput {
     name: String
-    price: Float
+    price: String
     category: String
     description: String
   }

@@ -18,13 +18,7 @@
               <td>{{ product.id }}</td>
               <td>{{ product.name }}</td>
               <td>
-                <MoneyInput
-                  disabled
-                  hide-details
-                  variant="plain"
-                  density="comfortable"
-                  v-model="product.price"
-                />
+                {{ product.price }}
               </td>
               <td>{{ product.description }}</td>
               <td>{{ product.category.name }}</td>
@@ -46,7 +40,7 @@
                 />
               </td>
               <td>
-                <MoneyInput
+                <v-text-field
                   hide-details
                   variant="outlined"
                   density="comfortable"

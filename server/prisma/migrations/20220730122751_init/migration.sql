@@ -2,7 +2,7 @@
 CREATE TABLE "Product" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "price" REAL,
+    "price" TEXT NOT NULL,
     "description" TEXT,
     "categoryId" INTEGER NOT NULL DEFAULT 1,
     CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

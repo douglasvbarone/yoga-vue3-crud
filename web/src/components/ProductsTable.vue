@@ -12,62 +12,66 @@
     </thead>
     <tbody>
       <transition-group name="fade-transition">
-        <template v-for="product in products" :key="product.id">
-          <tr>
-            <template v-if="editingProduct && editingProduct.id != product.id">
-              <td>{{ product.id }}</td>
-              <td>{{ product.name }}</td>
-              <td>
-                {{ product.price }}
-              </td>
-              <td>{{ product.description }}</td>
-              <td>{{ product.category.name }}</td>
-              <td>
-                <RowActions
-                  @delete="onDelete(product.id)"
-                  @edit="onEdit(product)"
-                />
-              </td>
-            </template>
-            <template v-else>
-              <td class="text-grey">{{ editingProduct.id }}</td>
-              <td>
-                <v-text-field
-                  hide-details
-                  variant="outlined"
-                  density="comfortable"
-                  v-model="editingProduct.name"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details
-                  variant="outlined"
-                  density="comfortable"
-                  v-model="editingProduct.price"
-                />
-              </td>
-              <td>
-                <v-text-field
-                  hide-details
-                  :variant="'outlined'"
-                  density="comfortable"
-                  v-model="editingProduct.description"
-                />
-              </td>
-              <td>
-                <category-select
-                  :currentCategory="editingProduct.category.name"
-                  @update="e => (editingCategory = e)"
-                  hide-label
-                />
-              </td>
-              <td>
-                <EditActions @save="onSave(product)" @cancel="onCancel()" />
-              </td>
-            </template>
-          </tr>
-        </template>
+        <tr v-for="product in products" :key="product.id">
+          <template v-if="editingProduct && editingProduct.id != product.id">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>
+              {{ product.price }}
+            </td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.category.name }}</td>
+            <td>
+              <RowActions
+                @delete="onDelete(product.id)"
+                @edit="onEdit(product)"
+              />
+            </td>
+          </template>
+          <template v-else>
+            <td class="text-grey">{{ editingProduct.id }}</td>
+            <td>
+              <v-text-field
+                hide-details
+                variant="outlined"
+                density="comfortable"
+                v-model="editingProduct.name"
+              />
+            </td>
+            <td>
+              <v-text-field
+                hide-details
+                type="number"
+                variant="outlined"
+                density="comfortable"
+                v-model="editingProduct.price"
+                :rules="[
+                  v => !!v || 'Price is required',
+                  v => v > 0 || 'Price must be greater than 0',
+                  v => !isNaN(v) || 'Price must be a number'
+                ]"
+              />
+            </td>
+            <td>
+              <v-text-field
+                hide-details
+                :variant="'outlined'"
+                density="comfortable"
+                v-model="editingProduct.description"
+              />
+            </td>
+            <td>
+              <category-select
+                :currentCategory="editingProduct.category.name"
+                @update="e => (editingCategory = e)"
+                hide-label
+              />
+            </td>
+            <td>
+              <EditActions @save="onSave(product)" @cancel="onCancel()" />
+            </td>
+          </template>
+        </tr>
       </transition-group>
     </tbody>
   </v-table>

@@ -18,9 +18,14 @@
 
               <v-text-field
                 v-model="price"
+                type="number"
                 label="Price"
                 :variant="'outlined'"
-                :rules="[v => !!v || 'Price is required']"
+                :rules="[
+                  v => !!v || 'Price is required',
+                  v => v > 0 || 'Price must be greater than 0',
+                  v => !isNaN(v) || 'Price must be a number'
+                ]"
               />
               <v-textarea
                 v-model="description"

@@ -1,6 +1,6 @@
 <template>
   <q-page class="">
-    <ProductsTable :products="products" />
+    <ProductsTable :products="products" v-if="products" />
   </q-page>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
   <q-table title="Products" :rows="products" :columns="columns" row-key="name">
-    <template v-slot:body="props"> </template>
   </q-table>
 </template>
 
